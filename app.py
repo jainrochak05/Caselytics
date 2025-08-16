@@ -7,8 +7,21 @@ st.title("Pendency Report from CSV Upload")
 # Step 1: Upload CSV
 uploaded_file = st.file_uploader("Upload CSV", type="csv")
 
+if uploaded_file is not None and uploaded_file.size > 10 * 1024 * 1024:  # 10MB limit
+    st.error("File too large. Please upload a file smaller than 10MB.")
+    st.stop()
+
 if uploaded_file:
-    df = pd.read_csv(uploaded_file, parse_dates=["case_open_date", "case_close_date"])
+    try:
+        df = pd.read_csv(
+            uploaded_file,
+            parse_dates=["case_open_date", "case_close_date"],
+            dtype=str,  # read all as string initially
+            on_bad_lines="skip"  # skip malformed rows
+        )
+    except Exception as e:
+        st.error(f"Error reading CSV: {e}")
+        st.stop()
     
    #st.subheader("Full Data")
     #st.dataframe(df)
@@ -16,6 +29,10 @@ if uploaded_file:
     # Step 2: Date Input
     start_date = st.date_input("Start Date", value=date(2025, 6, 1))
     end_date = st.date_input("End Date", value=date(2025, 7, 31))
+
+    if start_date > end_date:
+        st.error("Start Date cannot be after End Date.")
+        st.stop()
 
     # Step 3: Owner Filter
     all_owners = sorted(df["owner"].dropna().unique())
@@ -64,6 +81,12 @@ if uploaded_file:
 
     summary_df = generate_report(filtered_df)
 
+    def sanitize_csv(df):
+        dangerous_prefixes = ("=", "+", "-", "@")
+        return df.applymap(lambda x: x if not isinstance(x, str) or not x.startswith(dangerous_prefixes) else "'" + x)
+    
+    summary_df = sanitize_csv(summary_df)
+
     st.subheader("Case Summary")
     st.dataframe(summary_df)
 
@@ -75,3 +98,13 @@ if uploaded_file:
         file_name="case_summary.csv",
         mime="text/csv",
     )
+
+dummy_csv_path = "case_data_indian_names.csv"
+with open(dummy_csv_path, "rb") as f:
+    dummy_csv_bytes = f.read()
+st.download_button(
+    label="Download Dummy CSV",
+    data=dummy_csv_bytes,
+    file_name="dummy_cases.csv",
+    mime="text/csv"
+)
