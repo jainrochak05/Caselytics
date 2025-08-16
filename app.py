@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 from datetime import date
 
-st.title("Dendency Report from CSV Upload")
+st.title("Pendency Report from CSV Upload")
 
 # Step 1: Upload CSV
 uploaded_file = st.file_uploader("Upload CSV", type="csv")
