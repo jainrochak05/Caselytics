@@ -16,9 +16,12 @@ if uploaded_file:
         df = pd.read_csv(
             uploaded_file,
             parse_dates=["case_open_date", "case_close_date"],
-            dtype=str,  # read all as string initially
             on_bad_lines="skip"  # skip malformed rows
         )
+
+        # Ensure proper datetime conversion
+        df["case_open_date"] = pd.to_datetime(df["case_open_date"], errors="coerce")
+        df["case_close_date"] = pd.to_datetime(df["case_close_date"], errors="coerce")
     except Exception as e:
         st.error(f"Error reading CSV: {e}")
         st.stop()
