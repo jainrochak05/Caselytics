@@ -64,10 +64,14 @@ if uploaded_file:
 
     summary_df = generate_report(filtered_df)
 
-    # Add totals row
-    total_row = summary_df.drop(columns=["owner"]).sum(numeric_only=True)
-    total_row["owner"] = "Total"
-    summary_df = pd.concat([summary_df, pd.DataFrame([total_row])], ignore_index=True)
-
     st.subheader("Case Summary")
     st.dataframe(summary_df)
+
+    # Step 5: Download Summary as CSV
+    csv = summary_df.to_csv(index=False).encode("utf-8")
+    st.download_button(
+        label="Download Summary CSV",
+        data=csv,
+        file_name="case_summary.csv",
+        mime="text/csv",
+    )
