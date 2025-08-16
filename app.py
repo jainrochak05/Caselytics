@@ -108,3 +108,7 @@ st.download_button(
     file_name="dummy_cases.csv",
     mime="text/csv"
 )
+
+# Footer
+st.markdown("---")
+st.caption("Created by Rochak Kr. Jain")
