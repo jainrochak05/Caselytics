@@ -1,7 +1,7 @@
 
 
 
-# 📊 Pendency Report Analyzer
+# 📊 Caselytics - Pendency Report Analyzer
 
 **Repository:** [GitHub - Pendency Report Analyzer](https://github.com/jainrochak05/pendency_report.git)  
 **Live Deployment:** [Streamlit App](https://pendencyreport.streamlit.app)
