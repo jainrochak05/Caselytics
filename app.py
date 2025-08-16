@@ -1,7 +1,8 @@
 import streamlit as st
 import pandas as pd
 from datetime import date
-
+ 
+st.title("Caselytics")
 st.title("Pendency Report from CSV Upload")
 
 # Step 1: Upload CSV
