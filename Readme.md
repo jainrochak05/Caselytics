@@ -3,8 +3,8 @@
 
 # 📊 Caselytics - Pendency Report Analyzer
 
-**Repository:** [GitHub - Pendency Report Analyzer](https://github.com/jainrochak05/pendency_report.git)  
-**Live Deployment:** [Streamlit App](https://pendencyreport.streamlit.app)
+**Repository:** [GitHub - Pendency Report Analyzer](https://github.com/jainrochak05/Caselytics)  
+**Live Deployment:** [Streamlit App](https://caselytics.streamlit.app)
 
 ---
 
@@ -39,7 +39,7 @@ To facilitate testing and onboarding, a dummy CSV file is included. This allows 
 You can use the Pendency Report Analyzer in two ways:
 
 ### 1. Launch via Streamlit Cloud
-- Visit the [Live Streamlit App](https://pendencyreport.streamlit.app) and start analyzing your reports instantly—no installation required.
+- Visit the [Live Streamlit App](https://caselytics.streamlit.app) and start analyzing your reports instantly—no installation required.
 
 ### 2. Clone and Run Locally
 ```bash
